@@ -5,10 +5,9 @@ import { warn } from './helpers/console-stub';
 import { createTracker, createMetaReducer, EventTypes } from '../src/index';
 import { root } from './helpers/env-setup';
 
-test('Track - spec', t => {
-  t.test('default', st => {
+test('ngrx Track - spec', t => {
+    t.test('default', st => {
     st.plan(3);
-
 
     root.analytics = createAnalyticsStub();
     const _oldWarn = console.warn;
@@ -34,12 +33,10 @@ test('Track - spec', t => {
         analytics: EventTypes.track,
       },
     };
-    const identity = val => val;
-    const tracker = createTracker();
-    const store = compose(
-      applyMiddleware(tracker)
-    )(createStore)(identity);
 
+    const metaReducer = createMetaReducer();
+    const reducer = (state = {}) => state; // just a dummy reducer
+    const store = createStore(metaReducer(reducer));
 
     store.dispatch(explicitAction);
     const defaultExplicitEvent = [
@@ -56,7 +53,7 @@ test('Track - spec', t => {
     st.deepEqual(defaultImplicitEvent, ['track', EVENT_TYPE], 'emits a track event with an inferred event on implicit actions');
 
     const invalidAction = () => store.dispatch(notInferableAction);
-    st.throws(invalidAction, /missing event/, 'throws error when event prop is missing and cannot be inferred');
+    st.throws(invalidAction, 'throws error when event prop is missing and cannot be inferred');
 
 
     root.analytics = null;
@@ -81,12 +78,10 @@ test('Track - spec', t => {
         },
       },
     };
-    const identity = val => val;
-    const tracker = createTracker();
-    const store = compose(
-      applyMiddleware(tracker)
-    )(createStore)(identity);
 
+    const metaReducer = createMetaReducer();
+    const reducer = (state = {}) => state; // just a dummy reducer
+    const store = createStore(metaReducer(reducer));
 
     store.dispatch(action);
     const event = [
@@ -146,12 +141,10 @@ test('Track - spec', t => {
         },
       },
     };
-    const identity = val => val;
-    const tracker = createTracker();
-    const store = compose(
-      applyMiddleware(tracker)
-    )(createStore)(identity);
 
+    const metaReducer = createMetaReducer();
+    const reducer = (state = {}) => state; // just a dummy reducer
+    const store = createStore(metaReducer(reducer));
 
     store.dispatch(action);
     const event = [
@@ -230,12 +223,10 @@ test('Track - spec', t => {
         },
       },
     };
-    const identity = val => val;
-    const tracker = createTracker();
-    const store = compose(
-      applyMiddleware(tracker)
-    )(createStore)(identity);
 
+    const metaReducer = createMetaReducer();
+    const reducer = (state = {}) => state; // just a dummy reducer
+    const store = createStore(metaReducer(reducer));
 
     store.dispatch(action);
     const event = [
@@ -285,12 +276,10 @@ test('Track - spec', t => {
         ],
       },
     };
-    const identity = val => val;
-    const tracker = createTracker();
-    const store = compose(
-      applyMiddleware(tracker)
-    )(createStore)(identity);
 
+    const metaReducer = createMetaReducer();
+    const reducer = (state = {}) => state; // just a dummy reducer
+    const store = createStore(metaReducer(reducer));
 
     store.dispatch(action);
     const firstEvent = [
