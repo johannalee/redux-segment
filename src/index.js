@@ -49,19 +49,19 @@ function createMetaReducer(customOptions = {}) {
     return function (prevState, action) {
 
       if (action.meta && action.meta.analytics) {
-        return handleStoreSpec(reducer, prevState, action, options);
+        return handleReducerSpec(reducer, prevState, action, options);
       }
 
       if (typeof options.mapper[action.type] === 'function') {
         const getState = ()=> prevState;
         let analytics = options.mapper[action.type](getState, action);
 
-        return handleStoreSpec(reducer, prevState, appendAction(action, analytics), options);
+        return handleReducerSpec(reducer, prevState, appendAction(action, analytics), options);
       }
 
       if (typeof options.mapper[action.type] === 'string') {
         let analytics = {eventType: options.mapper[action.type]};
-        return handleStoreSpec(reducer, prevState, appendAction(action, analytics), options);
+        return handleReducerSpec(reducer, prevState, appendAction(action, analytics), options);
       }
 
       return reducer(prevState, action);
@@ -69,7 +69,7 @@ function createMetaReducer(customOptions = {}) {
   };
 }
 
-function handleStoreSpec(reducer: Function, prevState: Object, action: Object, options: Object) {
+function handleReducerSpec(reducer: Function, prevState: Object, action: Object, options: Object) {
   const spec = action.meta.analytics;
 
   if (Array.isArray(spec)) {

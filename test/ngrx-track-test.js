@@ -3,11 +3,11 @@ import { ReflectiveInjector } from '@angular/core';
 import { Store, StoreModule } from '@ngrx/store';
 import createAnalyticsStub from './helpers/segment-stub';
 import { warn } from './helpers/console-stub';
-import { createTracker, createMetaReducer, EventTypes } from '../src/index';
+import { createMetaReducer, EventTypes } from '../src/index';
 import { root } from './helpers/env-setup';
 
 test('ngrx Track - spec', t => {
-    t.test('default', st => {
+  t.test('default', st => {
     st.plan(3);
 
     root.analytics = createAnalyticsStub();
@@ -38,11 +38,11 @@ test('ngrx Track - spec', t => {
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
-    let injector = ReflectiveInjector.resolveAndCreate([
-      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    const injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers,
     ]);
 
-    let store = injector.get(Store);
+    const store = injector.get(Store);
 
     store.dispatch(explicitAction);
     const defaultExplicitEvent = [
@@ -84,15 +84,15 @@ test('ngrx Track - spec', t => {
         },
       },
     };
-    
+
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
-    let injector = ReflectiveInjector.resolveAndCreate([
-      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    const injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers,
     ]);
 
-    let store = injector.get(Store);
+    const store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -156,11 +156,11 @@ test('ngrx Track - spec', t => {
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
-    let injector = ReflectiveInjector.resolveAndCreate([
-      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    const injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers,
     ]);
 
-    let store = injector.get(Store);
+    const store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -243,11 +243,11 @@ test('ngrx Track - spec', t => {
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
-    let injector = ReflectiveInjector.resolveAndCreate([
-      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    const injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers,
     ]);
 
-    let store = injector.get(Store);
+    const store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -301,11 +301,11 @@ test('ngrx Track - spec', t => {
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
-    let injector = ReflectiveInjector.resolveAndCreate([
-      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    const injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers,
     ]);
 
-    let store = injector.get(Store);
+    const store = injector.get(Store);
 
     store.dispatch(action);
     const firstEvent = [

@@ -2,7 +2,7 @@ import test from 'tape';
 import { compose, createStore, applyMiddleware } from 'redux';
 import createAnalyticsStub from './helpers/segment-stub';
 import { warn } from './helpers/console-stub';
-import { createTracker, createMetaReducer, EventTypes } from '../src/index';
+import { createTracker, EventTypes } from '../src/index';
 import { root } from './helpers/env-setup';
 
 test('Track - spec', t => {
