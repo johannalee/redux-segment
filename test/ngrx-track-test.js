@@ -6,7 +6,7 @@ import { warn } from './helpers/console-stub';
 import { createTracker, createMetaReducer, EventTypes } from '../src/index';
 import { root } from './helpers/env-setup';
 
-test.only('ngrx Track - spec', t => {
+test('ngrx Track - spec', t => {
     t.test('default', st => {
     st.plan(3);
 
@@ -35,7 +35,6 @@ test.only('ngrx Track - spec', t => {
       },
     };
 
-    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
@@ -85,8 +84,7 @@ test.only('ngrx Track - spec', t => {
         },
       },
     };
-
-    let currentState;
+    
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
@@ -155,7 +153,6 @@ test.only('ngrx Track - spec', t => {
       },
     };
 
-    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
@@ -243,7 +240,6 @@ test.only('ngrx Track - spec', t => {
       },
     };
 
-    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
@@ -302,7 +298,6 @@ test.only('ngrx Track - spec', t => {
       },
     };
 
-    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
 
