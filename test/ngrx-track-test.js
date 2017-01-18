@@ -1,11 +1,12 @@
 import test from 'tape';
-import { compose, createStore, applyMiddleware } from 'redux';
+import { ReflectiveInjector } from '@angular/core';
+import { Store, StoreModule } from '@ngrx/store';
 import createAnalyticsStub from './helpers/segment-stub';
 import { warn } from './helpers/console-stub';
 import { createTracker, createMetaReducer, EventTypes } from '../src/index';
 import { root } from './helpers/env-setup';
 
-test('ngrx Track - spec', t => {
+test.only('ngrx Track - spec', t => {
     t.test('default', st => {
     st.plan(3);
 
@@ -34,9 +35,15 @@ test('ngrx Track - spec', t => {
       },
     };
 
+    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
-    const store = createStore(metaReducer(reducer));
+
+    let injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    ]);
+
+    let store = injector.get(Store);
 
     store.dispatch(explicitAction);
     const defaultExplicitEvent = [
@@ -53,7 +60,7 @@ test('ngrx Track - spec', t => {
     st.deepEqual(defaultImplicitEvent, ['track', EVENT_TYPE], 'emits a track event with an inferred event on implicit actions');
 
     const invalidAction = () => store.dispatch(notInferableAction);
-    st.throws(invalidAction, 'throws error when event prop is missing and cannot be inferred');
+    st.throws(invalidAction, /missing event/, 'throws error when event prop is missing and cannot be inferred');
 
 
     root.analytics = null;
@@ -79,9 +86,15 @@ test('ngrx Track - spec', t => {
       },
     };
 
+    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
-    const store = createStore(metaReducer(reducer));
+
+    let injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    ]);
+
+    let store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -142,9 +155,15 @@ test('ngrx Track - spec', t => {
       },
     };
 
+    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
-    const store = createStore(metaReducer(reducer));
+
+    let injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    ]);
+
+    let store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -224,9 +243,15 @@ test('ngrx Track - spec', t => {
       },
     };
 
+    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
-    const store = createStore(metaReducer(reducer));
+
+    let injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    ]);
+
+    let store = injector.get(Store);
 
     store.dispatch(action);
     const event = [
@@ -277,9 +302,15 @@ test('ngrx Track - spec', t => {
       },
     };
 
+    let currentState;
     const metaReducer = createMetaReducer();
     const reducer = (state = {}) => state; // just a dummy reducer
-    const store = createStore(metaReducer(reducer));
+
+    let injector = ReflectiveInjector.resolveAndCreate([
+      StoreModule.provideStore(metaReducer(reducer), {}).providers
+    ]);
+
+    let store = injector.get(Store);
 
     store.dispatch(action);
     const firstEvent = [
